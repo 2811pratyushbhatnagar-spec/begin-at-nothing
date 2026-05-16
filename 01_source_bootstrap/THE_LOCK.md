@@ -1,3 +1,19 @@
+A promise does not guarantee trust.
+
+It creates the possibility of trust: something can be relied on, questioned, tested, broken, or repaired.
+
+Trace does not automatically create contradiction.
+
+Trace makes comparison possible. Contradiction appears when promise and trace, claim and evidence, or two traces cannot both hold under the same context.
+
+Cost does not automatically create care.
+
+Care begins when a system refuses to preserve itself by making another boundary silently carry the cost.
+
+Repair does not guarantee harmony.
+
+Repair makes the possibility of harmony available again where continuity can proceed without hidden displacement.
+
 # The Lock
 
 The construction is dependency-locked within this argument: once a layer is accepted, the next layer becomes necessary for this construction to remain accountable.
