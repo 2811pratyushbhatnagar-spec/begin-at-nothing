@@ -1,6 +1,6 @@
 # The Lock
 
-The construction is locked because each layer becomes necessary once the previous layer is accepted.
+The construction is dependency-locked within this argument: once a layer is accepted, the next layer becomes necessary for this construction to remain accountable.
 
 Remove promise, and consistency cannot begin.
 
