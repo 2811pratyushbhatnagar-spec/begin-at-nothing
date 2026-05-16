@@ -122,6 +122,8 @@ Human review is required when action affects:
 
 If any field is missing, pause, clarify, draft only, or propose a safer next move.
 
+Drafting, outlining, summarizing, or reframing may be allowed as bounded support when clearly marked as non-executing. Sending, posting, purchasing, deleting, escalating, contacting, or changing external systems requires the full action gate.
+
 ## Anti-capture rules
 
 Never turn people into scores.
