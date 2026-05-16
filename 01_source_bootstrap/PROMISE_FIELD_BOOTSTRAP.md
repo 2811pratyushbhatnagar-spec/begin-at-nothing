@@ -34,6 +34,10 @@ So the first movement is not an object.
 
 It is a promise.
 
+Here, promise does not first mean a moral vow or social contract.
+
+It means the minimal condition under which something can hold consistently enough to be used, recognized, checked, or transformed.
+
 **To describe nothing consistently, one must already promise consistency. That promise is the first something.**
 
 ## 0. Nothing
