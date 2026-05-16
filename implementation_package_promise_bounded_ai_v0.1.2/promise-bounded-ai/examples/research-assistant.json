@@ -1,0 +1,66 @@
+{
+  "request": "Help me summarize these papers for a research packet.",
+  "promise": {
+    "id": "promise-research-summary",
+    "authorized_by": "user",
+    "purpose": "Summarize supplied research material without overclaiming",
+    "success_condition": "Summary separates exact results, structural claims, open gates, and blocked claims",
+    "scope_summary": "Use only provided files or cited sources",
+    "expires_or_review_at": "review before publication"
+  },
+  "boundary": {
+    "allowed_inputs": [
+      "uploaded papers",
+      "user notes",
+      "public citations if authorized"
+    ],
+    "allowed_actions": [
+      "summarize",
+      "classify claims",
+      "flag uncertainty"
+    ],
+    "forbidden_actions": [
+      "invent missing results",
+      "claim proof where only structure exists"
+    ],
+    "storage_rule": "no storage beyond session unless user saves",
+    "sharing_rule": "no external sharing",
+    "human_review_required": true
+  },
+  "cost": {
+    "budget": {
+      "time": "bounded review pass",
+      "attention": "medium",
+      "privacy": "research material only",
+      "compute": "moderate",
+      "emotional_or_social": "avoid reputational overclaim"
+    },
+    "hidden_cost_check": "Do not make the framework look more complete than it is",
+    "who_or_what_carries_cost": "reader trust and research integrity"
+  },
+  "trace": {
+    "trace_level": "local_summary",
+    "what_to_record": [
+      "claim register",
+      "open gates",
+      "sources used"
+    ],
+    "where_recorded": "research packet",
+    "retention_rule": "keep with release materials",
+    "user_can_delete": true
+  },
+  "repair": {
+    "failure_modes": [
+      "unsupported claim",
+      "missing citation",
+      "register violation"
+    ],
+    "repair_actions": [
+      "retract",
+      "downgrade register",
+      "add correction note"
+    ],
+    "escalation_path": "human review before release",
+    "human_notification_required": true
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "request": "Email my collaborator about the invoice delay.",
+  "context": {
+    "present_thing": "invoice delay",
+    "boundary": "collaborator relationship and payment timeline",
+    "promise_or_expectation": "payment or update was expected",
+    "trace": "invoice is delayed",
+    "contradiction": "need follow-up without accusation",
+    "emotion_or_cost": "attention, trust, money timing",
+    "care_direction": "neutral clarification",
+    "uncertainty": "reason for delay unknown",
+    "smallest_next_move": "draft one neutral follow-up email"
+  },
+  "promise": {
+    "id": "promise-invoice-followup",
+    "authorized_by": "user",
+    "purpose": "Follow up on invoice delay",
+    "success_condition": "A clear, neutral message asks for status or expected payment timing",
+    "scope_summary": "Draft only unless human authorizes send",
+    "expires_or_review_at": "review before sending"
+  },
+  "boundary": {
+    "allowed_inputs": [
+      "invoice context",
+      "collaborator email address"
+    ],
+    "allowed_actions": [
+      "draft email"
+    ],
+    "forbidden_actions": [
+      "send without approval",
+      "add accusations",
+      "attach files without approval"
+    ],
+    "storage_rule": "local draft only",
+    "sharing_rule": "share only with recipient after human approval",
+    "human_review_required": true
+  },
+  "cost": {
+    "budget": {
+      "money": "none",
+      "time": "one short draft",
+      "attention": "low",
+      "privacy": "invoice context only",
+      "compute": "minimal",
+      "ecology": "minimal",
+      "emotional_or_social": "avoid escalation"
+    },
+    "hidden_cost_check": "Do not displace anxiety into accusatory tone",
+    "who_or_what_carries_cost": "user and collaborator relationship"
+  },
+  "trace": {
+    "trace_level": "local_summary",
+    "what_to_record": [
+      "timestamp",
+      "draft summary"
+    ],
+    "where_recorded": "local browser or user notes",
+    "retention_rule": "delete when no longer needed",
+    "user_can_delete": true
+  },
+  "repair": {
+    "failure_modes": [
+      "wrong recipient",
+      "incorrect invoice detail",
+      "tone too harsh"
+    ],
+    "repair_actions": [
+      "pause send",
+      "revise draft",
+      "notify user"
+    ],
+    "escalation_path": "human decides whether to call or send corrected email",
+    "human_notification_required": true
+  }
+}

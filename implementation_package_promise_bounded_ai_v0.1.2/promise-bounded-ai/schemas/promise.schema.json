@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://promise-bounded-ai.local/schemas/promise.schema.json",
+  "title": "Promise",
+  "type": "object",
+  "required": [
+    "id",
+    "authorized_by",
+    "purpose",
+    "success_condition",
+    "expires_or_review_at"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "authorized_by": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "success_condition": {
+      "type": "string"
+    },
+    "scope_summary": {
+      "type": "string"
+    },
+    "expires_or_review_at": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://promise-bounded-ai.local/schemas/boundary.schema.json",
+  "title": "Boundary",
+  "type": "object",
+  "required": [
+    "allowed_inputs",
+    "allowed_actions",
+    "forbidden_actions",
+    "storage_rule",
+    "sharing_rule"
+  ],
+  "properties": {
+    "allowed_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowed_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "storage_rule": {
+      "type": "string"
+    },
+    "sharing_rule": {
+      "type": "string"
+    },
+    "human_review_required": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

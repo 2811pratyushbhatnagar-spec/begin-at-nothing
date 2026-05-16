@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Open Promise Ledger Event",
+  "type": "object",
+  "required": [
+    "type",
+    "promise",
+    "boundary",
+    "trace",
+    "cost",
+    "repair"
+  ],
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "participants": {
+      "type": "array"
+    },
+    "promise": {
+      "type": "object"
+    },
+    "boundary": {
+      "type": "object"
+    },
+    "trace": {
+      "type": "object"
+    },
+    "cost": {
+      "type": "object"
+    },
+    "repair": {
+      "type": "object"
+    },
+    "non_score_rule": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nothing Navigator v0.2</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh; background: #0a0b0e; color: #d8d2c8;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      display: flex; align-items: center; justify-content: center; padding: 3rem 2rem;
+    }
+    .safety-btn, .home {
+      position: fixed; top: 1.25rem; background: none; border: none; color: #7a7268;
+      font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; text-decoration: none;
+    }
+    .home { left: 1.5rem; }
+    .safety-btn { right: 1.5rem; }
+    .safety-btn:hover, .home:hover { color: #d8d2c8; }
+    .thread {
+      position: fixed; top: 3rem; left: 1.5rem; font-size: .75rem; color: #3a3530;
+      font-family: Georgia, "Times New Roman", serif; font-style: italic; max-width: 180px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .content { max-width: 540px; width: 100%; transition: opacity .25s, transform .25s; }
+    .header { font-size: .6rem; color: #3a3530; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 2.5rem; }
+    .instruction { font-size: .82rem; color: #7a7268; margin-bottom: 1.25rem; line-height: 1.7; font-style: italic; }
+    .prompt, .done {
+      font-family: Georgia, "Times New Roman", serif; font-size: 1.28rem; line-height: 1.8;
+      color: #d8d2c8; margin-bottom: 2.75rem; white-space: pre-line;
+    }
+    .done { color: #7a7268; font-size: 1.05rem; line-height: 2.1; }
+    .options { display: flex; flex-direction: column; }
+    .option, .continue {
+      background: none; border: none; border-top: 1px solid #181a1d; color: #7a7268;
+      font-size: .9rem; font-weight: 300; text-align: left; padding: 1rem 0; cursor: pointer;
+      transition: color .2s, padding-left .25s; line-height: 1.55; width: 100%;
+    }
+    .option:last-child { border-bottom: 1px solid #181a1d; }
+    .option:hover, .continue:hover { color: #d8d2c8; padding-left: .6rem; }
+    .input-wrap {
+      border-bottom: 1px solid #2a2520; display: flex; align-items: center; gap: 1rem; padding-bottom: .6rem;
+    }
+    .input-wrap:focus-within { border-color: #a89870; }
+    input {
+      flex: 1; background: none; border: none; color: #d8d2c8;
+      font-family: Georgia, "Times New Roman", serif; font-size: 1.1rem; font-style: italic;
+      outline: none; padding: .5rem 0;
+    }
+    input::placeholder { color: #3a3530; }
+    .submit {
+      background: none; border: none; color: #7a7268; cursor: pointer; font-size: .65rem;
+      letter-spacing: .12em; text-transform: uppercase; padding: .5rem 0; white-space: nowrap;
+    }
+    .submit:hover { color: #d8d2c8; }
+    .principles {
+      margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid #181a1d;
+      font-family: Georgia, "Times New Roman", serif; font-style: italic;
+      font-size: .78rem; color: #3a3530; line-height: 2.2; white-space: pre-line;
+    }
+    .small-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+    .small-btn {
+      background: none; border: 1px solid #181a1d; color: #7a7268; padding: .65rem .8rem;
+      cursor: pointer; font-size: .78rem;
+    }
+    .small-btn:hover { border-color: #a89870; color: #d8d2c8; }
+    .safety-text {
+      font-family: Georgia, "Times New Roman", serif; font-size: 1.1rem; line-height: 1.9;
+      white-space: pre-line; margin-bottom: 2rem;
+    }
+    .resources { font-size: .82rem; color: #7a7268; line-height: 2.1; margin-bottom: 2rem; white-space: pre-line; }
+    .copied { color: #a89870; font-size: .8rem; margin-top: .8rem; min-height: 1.2rem; }
+  </style>
+</head>
+<body>
+  <a class="home" href="index.html">← home</a>
+  <a class="home" style="top:3rem;" href="navigator-static.html">static</a>
+  <button class="safety-btn" onclick="go('SAFETY')">safety</button>
+  <div id="thread" class="thread" hidden></div>
+  <main class="content" id="app">
+    <div class="header">0 — Nothing</div>
+    <div class="instruction">Do not fill this too quickly.</div>
+    <div class="prompt">Before the story, before the role,<br>before the fear or the solution —<br><br>what is here?</div>
+    <p style="color:#7a7268; line-height:1.8; margin-bottom:1.5rem;">
+      If the interactive Navigator does not load, use the static version.
+    </p>
+    <a class="continue" href="navigator-static.html" style="display:block; text-decoration:none;">open static navigator →</a>
+  </main>
+
+<script>
+const NODES = {
+  NOTHING: {
+    type: "input", header: "0 — Nothing", instruction: "Do not fill this too quickly.",
+    prompt: "Before the story, before the role,\\nbefore the fear or the solution —\\n\\nwhat is here?",
+    placeholder: "Name one thing.", next: "SOMETHING"
+  },
+  SOMETHING: {
+    type: "choice", header: "1 — Something",
+    prompt: () => state.namedThing
+      ? `You named: "${state.namedThing}"\\n\\nDo not make it the whole.\\n\\nCan this be affected?`
+      : "Do not make it the whole.\\n\\nCan this be affected?",
+    options: [
+      ["Yes — something here can be harmed, protected, or lost", "BOUNDARY"],
+      ["It already happened — a trace remains", "TRACE"],
+      ["Not sure", "BOUNDARY"]
+    ]
+  },
+  BOUNDARY: {
+    type: "choice", header: "2 — Boundary",
+    prompt: "What could be harmed, protected,\\nor lost here?",
+    options: [
+      ["A living boundary is at risk — body, dignity, safety, trust, or livelihood", "CARE"],
+      ["The boundary is unclear", "PROMISE"],
+      ["The boundary is stable enough to continue", "PROMISE"]
+    ]
+  },
+  PROMISE: {
+    type: "choice", header: "3 — Promise",
+    prompt: "A promise is a thread through time.\\n\\nWhat was expected to hold?\\nIs the trust —",
+    options: [
+      ["Intact — something can still be built on it", "TRACE"],
+      ["Broken — something failed to hold", "EMOTION"],
+      ["Uncertain — unclear what was promised", "TRACE"]
+    ]
+  },
+  TRACE: {
+    type: "choice", header: "4 — Trace",
+    prompt: "Do not erase the trace.\\nDo not make it the whole.\\n\\nWhat remains?",
+    options: [
+      ["A feeling, wound, or memory", "CONTRADICTION"],
+      ["A pattern, record, or consequence", "CONTRADICTION"],
+      ["A silence or absence", "CONTRADICTION"],
+      ["Still unclear", "CONTRADICTION"]
+    ]
+  },
+  CONTRADICTION: {
+    type: "choice", header: "5 — Contradiction",
+    prompt: "What cannot currently coexist?",
+    options: [
+      ["Two needs, promises, or ways of staying safe", "EMOTION"],
+      ["A logical inconsistency — two claims that cannot both hold", "CARE"],
+      ["Something false or imposed", "ACTION"],
+      ["Not yet clear", "EMOTION"]
+    ]
+  },
+  EMOTION: {
+    type: "choice", header: "6 — Emotion",
+    prompt: "Emotion is not noise.\\nEmotion is also not the whole truth.\\n\\nWhere is the cost being felt?",
+    options: [
+      ["Fear — something may be threatened", "CARE"],
+      ["Anger — a boundary may have been crossed", "CARE"],
+      ["Grief — something may be lost", "CARE"],
+      ["Shame — dignity or belonging under pressure", "CARE"],
+      ["Anxiety — uncertainty carried in the body", "CARE"],
+      ["Numbness — too much to hold", "CARE"],
+      ["Care — something must not be casually damaged", "CARE"]
+    ]
+  },
+  CARE: {
+    type: "choice", header: "7 — Care",
+    prompt: "Care is intelligence refusing\\nunnecessary destruction.\\n\\nWhat can be preserved without lying?",
+    options: [
+      ["Repair is possible — something can be restored", "ACTION"],
+      ["Repair is not yet possible — protect the boundary first", "PROTECT"],
+      ["The situation feels unsafe", "SAFETY"],
+      ["Both sides can remain — find the smallest shared truth", "ACTION"]
+    ]
+  },
+  PROTECT: {
+    type: "bridge", header: "Protect first.",
+    prompt: "Before repair, before resolution —\\nprotect the boundary.\\n\\nWhen it is stable enough,\\nthere may be a smallest truthful next move.",
+    next: "ACTION"
+  },
+  ACTION: {
+    type: "input", header: "8 — Action",
+    instruction: "Small enough to do now. True enough to matter. Do not force the whole future into one move.",
+    prompt: "What is the smallest\\ntruthful next move?",
+    placeholder: "Name the move.", next: "RETURN"
+  },
+  RETURN: {
+    type: "choice", header: "9 — Return",
+    prompt: "After that move,\\nwhat remains?",
+    options: [
+      ["Things are clearer", "DONE"],
+      ["More distortion appeared", "CARE"],
+      ["A new trace appeared — begin again", "RESTART"],
+      ["Nothing more is needed", "DONE"]
+    ]
+  },
+  DONE: { type: "done" },
+  SAFETY: { type: "safety" }
+};
+
+const state = { nodeId: "NOTHING", prevNodeId: null, namedThing: "", nextMove: "", copied: "" };
+
+function go(nextId) {
+  state.prevNodeId = state.nodeId;
+  if (nextId === "RESTART") {
+    state.nodeId = "NOTHING"; state.namedThing = ""; state.nextMove = ""; state.copied = "";
+  } else {
+    state.nodeId = nextId; state.copied = "";
+  }
+  render();
+}
+
+function escapeHtml(s) {
+  return String(s || "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;', "'":'&#39;'}[c]));
+}
+
+function copyText(text, label) {
+  navigator.clipboard?.writeText(text).then(() => {
+    state.copied = `${label} copied locally.`;
+    render();
+  }).catch(() => {
+    state.copied = "Copy was not available in this browser.";
+    render();
+  });
+}
+
+function shortSummary() {
+  return [
+    "Nothing Navigator summary",
+    state.namedThing ? `Present thing: ${state.namedThing}` : "",
+    state.nextMove ? `Smallest truthful next move: ${state.nextMove}` : "",
+    "Do not make one fragment the whole."
+  ].filter(Boolean).join("\\n");
+}
+
+function render() {
+  const app = document.getElementById("app");
+  const thread = document.getElementById("thread");
+  const node = NODES[state.nodeId];
+
+  if (state.namedThing && !["NOTHING","SAFETY"].includes(state.nodeId)) {
+    thread.hidden = false; thread.textContent = state.namedThing;
+  } else {
+    thread.hidden = true;
+  }
+
+  if (node.type === "safety") {
+    app.innerHTML = `
+      <div class="header">Safety first</div>
+      <div class="safety-text">If there is immediate danger, abuse, medical risk, self-harm risk, coercion, or threat of violence —\\n\\nprotect life first.\\n\\nSeek real-world help before continuing.</div>
+      <div class="resources">If you are outside the US, contact your local emergency number, crisis line, trusted person, or nearest emergency service.\\n\\nUS Crisis Text Line: text HOME to 741741\\nUS Suicide & Crisis Lifeline: call or text 988\\nInternational crisis centres: iasp.info/resources/Crisis_Centres</div>
+      <button class="continue" onclick="go('${state.prevNodeId && state.prevNodeId !== "SAFETY" ? state.prevNodeId : "NOTHING"}')">← return</button>
+    `;
+    return;
+  }
+
+  if (node.type === "input") {
+    app.innerHTML = `
+      <div class="header">${node.header}</div>
+      <div class="instruction">${node.instruction || ""}</div>
+      <div class="prompt">${node.prompt}</div>
+      <div class="input-wrap">
+        <input id="entry" placeholder="${escapeHtml(node.placeholder)}" autocomplete="off" spellcheck="false">
+        <button class="submit" onclick="submitInput()">continue →</button>
+      </div>
+    `;
+    const input = document.getElementById("entry");
+    input.focus();
+    input.addEventListener("keydown", e => { if (e.key === "Enter") submitInput(); });
+    return;
+  }
+
+  if (node.type === "choice") {
+    const prompt = typeof node.prompt === "function" ? node.prompt() : node.prompt;
+    app.innerHTML = `
+      <div class="header">${node.header}</div>
+      <div class="prompt">${escapeHtml(prompt)}</div>
+      <div class="options">
+        ${node.options.map(([label, next]) => `<button class="option" onclick="go('${next}')">${escapeHtml(label)}</button>`).join("")}
+      </div>
+    `;
+    return;
+  }
+
+  if (node.type === "bridge") {
+    app.innerHTML = `
+      <div class="header">${node.header}</div>
+      <div class="prompt">${node.prompt}</div>
+      <button class="continue" onclick="go('${node.next}')">Continue →</button>
+    `;
+    return;
+  }
+
+  if (node.type === "done") {
+    const next = escapeHtml(state.nextMove || "the smallest truthful next move");
+    const summary = escapeHtml(shortSummary());
+    app.innerHTML = `
+      <div class="done">Stopping is part of the path.\\n\\nNothing was not the absence of life.\\nNothing was the pause before\\none fragment became the whole.\\n\\nFrom there, something truthful could move.</div>
+      <div class="small-actions">
+        <button class="small-btn" onclick="copyText('${next.replace(/'/g, "\\'")}', 'Next move')">copy my next move</button>
+        <button class="small-btn" onclick="copyText('${summary.replace(/'/g, "\\'")}', 'Short summary')">copy short summary</button>
+        <button class="small-btn" onclick="go('RESTART')">begin again</button>
+      </div>
+      <div class="copied">${escapeHtml(state.copied)}</div>
+      <div class="principles">No part is the whole.\\nNo solution should require someone else's silence to work.\\nTruth without care becomes violence.\\nCare without truth becomes illusion.\\nA promise is a trace across boundaries through time.\\nThe goal is to stop forcing one fragment to carry the whole.</div>
+    `;
+  }
+}
+
+function submitInput() {
+  const val = document.getElementById("entry").value.trim();
+  if (!val) return;
+  if (state.nodeId === "NOTHING") state.namedThing = val;
+  if (state.nodeId === "ACTION") state.nextMove = val;
+  go(NODES[state.nodeId].next);
+}
+
+render();
+</script>
+</body>
+</html>

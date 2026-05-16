@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Promise Builder</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    textarea {
+      width: 100%; min-height: 130px; background: #101216; border: 1px solid #202329;
+      color: #d8d2c8; padding: 1rem; resize: vertical; outline: none;
+    }
+    label { display: block; color: #7a7268; margin: 1rem 0 .35rem; font-size: .9rem; }
+    pre {
+      background: #101216; border: 1px solid #202329; padding: 1rem; overflow: auto;
+      color: #d8d2c8; line-height: 1.5; margin-top: 1rem;
+    }
+    .row { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1rem; }
+    input {
+      width: 100%; background: #101216; border: 1px solid #202329;
+      color: #d8d2c8; padding: .8rem; outline: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="container">
+      <a class="back" href="index.html">← home</a>
+      <div class="kicker">Promise Builder v0.1</div>
+      <h1>Turn a messy request into a bounded action plan.</h1>
+      <p class="lede">
+        This demo does not execute anything. It helps make intent, boundary, cost, trace, and repair visible before action.
+      </p>
+
+      <label for="request">Messy request</label>
+      <textarea id="request" placeholder="Example: Email my collaborator about the invoice delay."></textarea>
+
+      <label for="promise">Promise / purpose</label>
+      <input id="promise" placeholder="What is the agent authorized to pursue?">
+
+      <label for="boundary">Boundary</label>
+      <input id="boundary" placeholder="What may it access, affect, reveal, or store?">
+
+      <label for="cost">Cost</label>
+      <input id="cost" placeholder="What cost must not be hidden?">
+
+      <label for="trace">Trace</label>
+      <input id="trace" placeholder="What should be recorded, and where?">
+
+      <label for="repair">Repair</label>
+      <input id="repair" placeholder="What happens if it fails or exceeds scope?">
+
+      <div class="row">
+        <button class="btn" onclick="build()">Build object</button>
+        <button class="btn" onclick="loadExample()">Load invoice example</button>
+        <button class="btn" onclick="copyOutput()">Copy JSON</button>
+      </div>
+
+      <pre id="output">{}</pre>
+
+      <div class="rule">
+        v0.1 rule: no autonomous execution. This builder only shapes a reviewable action contract.
+      </div>
+    </div>
+  </main>
+
+<script>
+function val(id) { return document.getElementById(id).value.trim(); }
+
+function build() {
+  const obj = {
+    request: val("request"),
+    promise: {
+      purpose: val("promise"),
+      authorized_by: "human review required",
+      success_condition: "must be reviewed before execution"
+    },
+    boundary: {
+      scope: val("boundary"),
+      human_review_required: true
+    },
+    cost: {
+      hidden_cost_check: val("cost")
+    },
+    trace: {
+      requirement: val("trace"),
+      trace_level: "local_summary"
+    },
+    repair: {
+      path: val("repair"),
+      human_notification_required: true
+    },
+    executable_in_v0_1: false
+  };
+  document.getElementById("output").textContent = JSON.stringify(obj, null, 2);
+}
+
+function loadExample() {
+  document.getElementById("request").value = "Email my collaborator about the invoice delay.";
+  document.getElementById("promise").value = "Follow up on the invoice delay with a neutral status request.";
+  document.getElementById("boundary").value = "May use collaborator email and invoice context only. Draft only unless human approves send.";
+  document.getElementById("cost").value = "One short message. No accusation. No attachment unless approved. Avoid social escalation.";
+  document.getElementById("trace").value = "Local timestamp, draft summary, and final message if sent.";
+  document.getElementById("repair").value = "If recipient/content is wrong, notify human, correct message, and revoke send permission.";
+  build();
+}
+
+function copyOutput() {
+  navigator.clipboard?.writeText(document.getElementById("output").textContent);
+}
+
+build();
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://promise-bounded-ai.local/schemas/trace.schema.json",
+  "title": "Trace",
+  "type": "object",
+  "required": [
+    "trace_level",
+    "what_to_record",
+    "where_recorded",
+    "retention_rule"
+  ],
+  "properties": {
+    "trace_level": {
+      "enum": [
+        "none",
+        "local_summary",
+        "local_full",
+        "shared_summary"
+      ]
+    },
+    "what_to_record": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "where_recorded": {
+      "type": "string"
+    },
+    "retention_rule": {
+      "type": "string"
+    },
+    "user_can_delete": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

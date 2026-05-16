@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://promise-bounded-ai.local/schemas/governance.schema.json",
+  "title": "Governance",
+  "type": "object",
+  "required": [
+    "review_role",
+    "appeal_or_contest_path",
+    "anti_capture_checks"
+  ],
+  "properties": {
+    "review_role": {
+      "type": "string"
+    },
+    "appeal_or_contest_path": {
+      "type": "string"
+    },
+    "anti_capture_checks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forkability": {
+      "type": "string"
+    },
+    "auditability": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

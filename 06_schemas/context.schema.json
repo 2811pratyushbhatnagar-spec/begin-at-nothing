@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Promise-Bound Context",
+  "type": "object",
+  "required": [
+    "present_thing",
+    "boundary",
+    "smallest_next_move"
+  ],
+  "properties": {
+    "present_thing": {
+      "type": "string"
+    },
+    "boundary": {
+      "type": "string"
+    },
+    "promise_or_expectation": {
+      "type": "string"
+    },
+    "trace": {
+      "type": "string"
+    },
+    "contradiction": {
+      "type": "string"
+    },
+    "emotion_or_cost": {
+      "type": "string"
+    },
+    "care_direction": {
+      "type": "string"
+    },
+    "uncertainty": {
+      "type": "string"
+    },
+    "smallest_next_move": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

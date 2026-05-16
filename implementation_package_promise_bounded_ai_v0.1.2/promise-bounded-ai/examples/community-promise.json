@@ -1,0 +1,69 @@
+{
+  "request": "Coordinate weekly food preparation in a small community.",
+  "promise": {
+    "id": "promise-community-food",
+    "authorized_by": "participating members",
+    "purpose": "Coordinate weekly food preparation without hidden overwork",
+    "success_condition": "Meals are prepared and workload is visible and fairly distributed",
+    "scope_summary": "Track tasks, needs, and contribution summaries only",
+    "expires_or_review_at": "weekly review"
+  },
+  "boundary": {
+    "allowed_inputs": [
+      "volunteered availability",
+      "food needs",
+      "task preferences"
+    ],
+    "allowed_actions": [
+      "suggest schedule",
+      "show imbalance",
+      "ask for consented changes"
+    ],
+    "forbidden_actions": [
+      "rank people",
+      "publish private reasons",
+      "assign without consent"
+    ],
+    "storage_rule": "community-local shared summary",
+    "sharing_rule": "visible to participating members only",
+    "human_review_required": true
+  },
+  "cost": {
+    "budget": {
+      "money": "shared food budget only",
+      "time": "declared availability",
+      "attention": "low weekly check-in",
+      "privacy": "no personal reasons required",
+      "emotional_or_social": "watch for silent overwork"
+    },
+    "hidden_cost_check": "Identify who is over-giving or under-supported",
+    "who_or_what_carries_cost": "participants and local care network"
+  },
+  "trace": {
+    "trace_level": "shared_summary",
+    "what_to_record": [
+      "tasks completed",
+      "unfilled needs",
+      "overload signals"
+    ],
+    "where_recorded": "community ledger",
+    "retention_rule": "review weekly; delete old details monthly",
+    "user_can_delete": true
+  },
+  "repair": {
+    "failure_modes": [
+      "no-show",
+      "overload",
+      "unfair distribution",
+      "food need unmet"
+    ],
+    "repair_actions": [
+      "redistribute task",
+      "ask for support",
+      "pause expectation",
+      "repair conversation"
+    ],
+    "escalation_path": "community review circle",
+    "human_notification_required": true
+  }
+}

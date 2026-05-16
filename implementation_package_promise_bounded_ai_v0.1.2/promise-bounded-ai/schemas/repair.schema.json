@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://promise-bounded-ai.local/schemas/repair.schema.json",
+  "title": "Repair",
+  "type": "object",
+  "required": [
+    "failure_modes",
+    "repair_actions",
+    "escalation_path"
+  ],
+  "properties": {
+    "failure_modes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "repair_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "escalation_path": {
+      "type": "string"
+    },
+    "human_notification_required": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

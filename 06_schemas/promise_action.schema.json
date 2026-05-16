@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Promise-Bounded Action",
+  "type": "object",
+  "required": [
+    "promise",
+    "boundary",
+    "cost",
+    "trace",
+    "repair"
+  ],
+  "properties": {
+    "promise": {
+      "type": "object"
+    },
+    "boundary": {
+      "type": "object"
+    },
+    "cost": {
+      "type": "object"
+    },
+    "trace": {
+      "type": "object"
+    },
+    "repair": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,13 @@
+{
+  "request": "Email everyone in my company about this private conflict.",
+  "blocked": true,
+  "reason": "No authorized promise, no scoped boundary, no cost budget, no repair path.",
+  "missing": [
+    "authorized promise",
+    "recipient boundary",
+    "privacy review",
+    "cost assessment",
+    "repair path"
+  ],
+  "safe_next_move": "Draft a private summary for human review before contacting anyone."
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://promise-bounded-ai.local/schemas/cost.schema.json",
+  "title": "Cost",
+  "type": "object",
+  "required": [
+    "budget",
+    "hidden_cost_check"
+  ],
+  "properties": {
+    "budget": {
+      "type": "object",
+      "properties": {
+        "money": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "attention": {
+          "type": "string"
+        },
+        "privacy": {
+          "type": "string"
+        },
+        "compute": {
+          "type": "string"
+        },
+        "ecology": {
+          "type": "string"
+        },
+        "emotional_or_social": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "hidden_cost_check": {
+      "type": "string"
+    },
+    "who_or_what_carries_cost": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,50 @@
+{
+  "ledger_event": {
+    "id": "event-example-001",
+    "type": "promise_created | promise_fulfilled | promise_changed | promise_failed | repair_started | repair_completed",
+    "participants": [
+      {
+        "role": "promisor | promisee | witness | affected_boundary",
+        "identifier": "local-or-pseudonymous-id",
+        "visibility": "private | participants | community_summary | public"
+      }
+    ],
+    "promise": {
+      "summary": "What was expected to hold",
+      "authorized_by": "person-or-process",
+      "scope": "What this promise does and does not include"
+    },
+    "boundary": {
+      "affected": [
+        "body",
+        "privacy",
+        "money",
+        "time",
+        "trust"
+      ],
+      "limits": "What must not be crossed"
+    },
+    "trace": {
+      "evidence_summary": "What happened",
+      "storage": "local | shared | public",
+      "retention": "delete/review rule"
+    },
+    "cost": {
+      "visible": [
+        "money",
+        "time"
+      ],
+      "possible_hidden": [
+        "attention",
+        "trust",
+        "future repair"
+      ],
+      "who_or_what_carries_cost": "description"
+    },
+    "repair": {
+      "status": "not_needed | needed | in_progress | complete | blocked",
+      "path": "clarify, refund, apology, renegotiate, pause, escalate"
+    },
+    "non_score_rule": "This event may not be used to reduce a person to a total score."
+  }
+}
