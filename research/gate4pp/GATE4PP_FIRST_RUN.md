@@ -1,8 +1,8 @@
-# Gate 4pp — First Run Protocol v0.1
+# Gate 4pp — First Run Protocol v0.2
 
 Status: research-track protocol
 
-This protocol is for the first real sampler-to-runner handoff after the Gate 4pp observable, runner, and packet validator have been added.
+This protocol is for the first real sampler-to-runner handoff after the Gate 4pp observable, runner, packet validator, and grid validator have been added.
 
 It does not classify physics.
 
@@ -18,6 +18,7 @@ The Gate 4pp research folder should contain:
 research/gate4pp/z9_center_wilson_loops.py
 research/gate4pp/gate4pp_runner.py
 research/gate4pp/validate_gate4pp_packet.py
+research/gate4pp/validate_gate4pp_grid.py
 research/gate4pp/GATE4PP_FIRST_RUN.md
 ```
 
@@ -153,7 +154,36 @@ The first grid asks whether the observable behaves coherently across the mode-lo
 
 ---
 
-## 7. What not to claim after this run
+## 7. Validate the four-beta grid
+
+After the four beta packets are written, validate the grid structurally:
+
+```bash
+python research/gate4pp/validate_gate4pp_grid.py gate4pp_outputs \
+  --expect-n-cfg 100 \
+  --betas 1.2 1.9 2.13 2.8
+```
+
+Optional CSV summary:
+
+```bash
+python research/gate4pp/validate_gate4pp_grid.py gate4pp_outputs \
+  --expect-n-cfg 100 \
+  --betas 1.2 1.9 2.13 2.8 \
+  --csv gate4pp_outputs/gate4pp_grid_summary.csv
+```
+
+A passing grid means only:
+
+```text
+All expected diagnostic packets are structurally healthy and remain diagnostic-only.
+```
+
+It does not mean the center-vortex branch is confirmed.
+
+---
+
+## 8. What not to claim after this run
 
 Do not claim:
 
@@ -167,7 +197,7 @@ The grid only produces first diagnostic Wilson-loop packets.
 
 ---
 
-## 8. What can be claimed if validator passes
+## 9. What can be claimed if validators pass
 
 If the first packet validates:
 
@@ -185,7 +215,7 @@ That is all.
 
 ---
 
-## 9. Next gate after the diagnostic grid
+## 10. Next gate after the diagnostic grid
 
 The next gate is not interpretation. It is quality control:
 
