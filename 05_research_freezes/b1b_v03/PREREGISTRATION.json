@@ -1,0 +1,166 @@
+{
+  "achievability_before_freeze": {
+    "L12_precision": {
+      "audited_range_max_chains": 16,
+      "chains_per_start": 24,
+      "extrapolation_factor": 3.0,
+      "margin_percentage_points": 0.13878,
+      "new_total_chains": 48,
+      "outer_bootstrap_upper_percent": 1.36122,
+      "point_prediction_percent": 1.11799,
+      "threshold_percent": 1.5
+    },
+    "L16_precision": {
+      "chains_per_start": 6,
+      "inside_audited_range": true,
+      "margin_percentage_points": 0.132501,
+      "new_total_chains": 12,
+      "outer_bootstrap_upper_percent": 1.367499,
+      "point_prediction_percent": 1.265312,
+      "threshold_percent": 1.5
+    },
+    "drift": {
+      "median_percent": 0.622175,
+      "q0.025_percent": 0.029599,
+      "q0.975_percent": 2.030382,
+      "tolerance_percent": 5.0
+    },
+    "start_family": {
+      "L12_simultaneous_upper_percent": 2.622525,
+      "L16_simultaneous_upper_percent": 3.339301,
+      "joint_two_endpoint_max_q0.95_percent": 2.721038,
+      "tolerance_percent": 5.0
+    }
+  },
+  "chain_protocol": {
+    "bootstrap_block_length_configurations": 40,
+    "loop_shapes": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "measure_every_sweeps": 5,
+    "measurement_sweeps": 6000,
+    "proposal": "uniform over every nonzero Z9 link increment",
+    "retained_configurations_per_chain": 1200,
+    "start_families": {
+      "large_flux": "hstar=4",
+      "small_flux": "hstar=1"
+    },
+    "thermalization_sweeps": 1200
+  },
+  "does_not_claim": [
+    "asymptotic area law",
+    "confinement",
+    "SU3 center or N-ality physics",
+    "continuum limit",
+    "universality",
+    "physical scale setting",
+    "causal attribution of sub-5% drift to volume alone"
+  ],
+  "drift_classifier": {
+    "FAIL": "q0.025(D*) > 5%",
+    "PASS": "q0.975(D*) <= 5%",
+    "UNRESOLVED": "interval intersects 5%",
+    "licensing_condition": "drift may be called certified only if both endpoints satisfy every point requirement, including realized chi22 precision <=1.5%",
+    "tolerance_percent": 5.0
+  },
+  "estimands": {
+    "chi22": "-log(W22*W11/W12^2) evaluated on point-level loop means",
+    "point_loop": "equal-weight mean of equal-length independent chain means of Re W_native",
+    "start_effect": "E_L = abs(chi22_small-chi22_large) / ((abs(chi22_small)+abs(chi22_large))/2)",
+    "volume_drift": "D = abs(chi22_L16-chi22_L12) / ((abs(chi22_L16)+abs(chi22_L12))/2)"
+  },
+  "fixed_design": {
+    "L12": {
+      "large_flux_chains": 24,
+      "new_chains": 48,
+      "replicas_per_start": "0 through 23 in the v0.3 seed namespace",
+      "small_flux_chains": 24
+    },
+    "L16": {
+      "large_flux_chains": 6,
+      "new_chains": 12,
+      "replicas_per_start": "0 through 5 in the v0.3 seed namespace",
+      "small_flux_chains": 6
+    },
+    "N": 9,
+    "beta": 2.5,
+    "no_adaptive_stopping": true,
+    "no_top_up_or_extension_within_v03": true,
+    "total_new_chains": 60
+  },
+  "gate_verdict": {
+    "FAIL": "any endpoint point requirement fails, either start effect is MATERIAL_FAIL, or drift is FAIL",
+    "PASS": "both endpoints pass every point requirement, both start effects are SUBTOLERANCE, and drift is PASS",
+    "UNRESOLVED": "no FAIL condition occurs, but either start effect or drift is UNRESOLVED"
+  },
+  "independence": {
+    "v022_chains": "design, variance, achievability, and cost evidence only; excluded from every v0.3 confirmatory estimate, interval, classification, and verdict",
+    "v03_confirmatory_data": "new chains only"
+  },
+  "point_requirements_each_endpoint": {
+    "chi22_precision": "relative 95% half-width <= 1.5%",
+    "flat_fraction": "exactly zero",
+    "imaginary_symmetry": "abs(ImW) <= 3 bootstrap standard errors",
+    "positive_domain": "W11, W12, W22 estimates and their bootstrap 95% lower bounds > 0",
+    "split_rhat": "<= 1.01 for each required ReW series"
+  },
+  "recorded_residual": {
+    "L12": "48 chains extrapolate the m<=16 half-width law by a factor of 3.0. Cross-observable exponent stability supports the extrapolation, but realized precision remains an empirical gate condition, not a guaranteed outcome.",
+    "response_to_realized_L12_precision_miss": "record v0.3 as FAIL; do not top up v0.3; size a separate v0.4 cohort from the then-in-range m<=48 fit and freeze it before new execution"
+  },
+  "register": "finite native-Z9 nonlocal observable; B1 finite-evidence gate",
+  "scope": {
+    "not_reanalysed": [
+      "beta=3.0",
+      "beta=3.5"
+    ],
+    "post_v03_reporting": "per-beta provenance must remain explicit: beta=3.0 and 3.5 from v0.2.2; beta=2.5 from v0.3 only if v0.3 passes",
+    "primary": "independent confirmation of beta=2.5 L12-to-L16 chi22 volume drift",
+    "retained_prior_results": {
+      "beta_3.0": "certified PASS under v0.2.2",
+      "beta_3.5": "certified PASS under v0.2.2"
+    }
+  },
+  "secondary_start_diagnostics": {
+    "component_loops": "family differences in W11, W12, and W22 reported descriptively; cannot alter the gate verdict",
+    "permutation": "exact balanced chain-label permutation test on chi22 at each endpoint; Holm adjustment over two endpoints; diagnostic only"
+  },
+  "seed_rules": {
+    "bootstrap_base_seed": "uint32(first 16 hex digits of prereg_sha256), matching the v0.2.2 pre-registration-hash principle",
+    "chain_seed": "uint32(first 16 hex digits of SHA256(prereg_sha256 + '|B1b-v0.3|chain|L=<L>|beta=2.5|start=<start>|replica=<r>'))",
+    "manual_seed_selection": "forbidden",
+    "preregistration_hash": "SHA256 of the exact frozen PREREGISTRATION.json bytes"
+  },
+  "start_family_classifier": {
+    "MATERIAL_FAIL": "q0.0125(E_L*) > 5%",
+    "SUBTOLERANCE": "q0.9875(E_L*) <= 5%",
+    "UNRESOLVED": "simultaneous interval intersects 5%",
+    "familywise_coverage": "95% two-sided Bonferroni over two endpoints",
+    "gate_requirement": "both endpoints SUBTOLERANCE",
+    "lower_quantile": 0.0125,
+    "purpose": "gross-trapping and material-history-dependence guard only; not a guarantee of causal attribution below 5%",
+    "scope": "two beta=2.5 endpoints",
+    "tolerance_percent": 5.0,
+    "upper_quantile": 0.9875
+  },
+  "status": "FROZEN BEFORE ANY v0.3 PRODUCTION CHAIN",
+  "title": "Register Integrity Gate v0.3 — beta=2.5 Independent Confirmation",
+  "uncertainty": {
+    "bootstrap_replicates": 50000,
+    "interval_type": "percentile",
+    "point_resampling": "resample independent chains, then resample 40-configuration blocks within each selected chain",
+    "start_resampling": "resample chains separately within each start family, then blocks within each selected chain",
+    "volume_resampling": "resample L12 and L16 independently"
+  }
+}
